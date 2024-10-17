@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost"; // Cambia esto si tu servidor es diferente
-$username = "Steven"; // Tu nombre de usuario
-$password = "123"; // Tu contraseña
+$username = "root"; // Tu nombre de usuario
+$password = ""; // Tu contraseña
 $dbname = "tienda_artesanal"; // El nombre de tu base de datos
 
 // Crear conexión

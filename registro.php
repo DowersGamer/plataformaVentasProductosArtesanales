@@ -1,3 +1,34 @@
+<?php 
+session_start();
+include './dbConnection.php';
+if ($_SERVER["REQUEST_METHOD"] == 'POST') {
+  if (isset($_POST['nombreUsu']) && isset($_POST['correoUsu']) && isset($_POST['contrasenaUsu']) && isset($_POST['confContasena'])) {
+    $nombreUsuario = $conn->real_escape_string($_POST['nombreUsu']);
+    $email = $conn->real_escape_string($_POST['correoUsu']);
+    $contrasena = $conn->real_escape_string($_POST['contrasenaUsu']);
+    $confContrasena = $conn->real_escape_string($_POST['confContasena']);
+    if ($contrasena == $confContrasena) {
+      $contrasena = password_hash($contrasena, PASSWORD_DEFAULT);
+      $sql = "INSERT INTO usuarios(nombre_usuario, correo_electronico, contrasena) VALUES ('$nombreUsuario', '$email', '$contrasena')";
+      if($conn->query($sql)){
+        $_SESSION['logueado'] = true;
+        header('Location: index.php');
+        exit;
+      }else{
+        $_SESSION["registerFailded"] = "Ocurrio un error al crear el usuario, intentelo nuevamente";
+      }
+    }else{
+      $_SESSION["registerFailded"] = "Las contraseñas no coinciden";
+    }
+    
+  }else{
+    $_SESSION["registerFailded"] = "Todos los campos son obligatorios";
+  }
+}elseif (isset($_SESSION["logueado"])) {
+  header('Location: index.php');
+  exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +47,7 @@
           <h2 class="text-center text-primary fw-bold">Registro de usuario</h2>
           <div class="card m-5">
             <div class="card-body">
-              <form action="">
+              <form action="index.php" method="POST">
                 <label class='ms-1 fw-bold pb-2' for="nombreUsu">Nombre de usuario:</label>
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="nombreUsu" name="nombreUsu" placeholder="Steven0987" required>
