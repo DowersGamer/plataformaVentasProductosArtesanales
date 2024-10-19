@@ -1,6 +1,11 @@
 <?php
 session_start();
-var_dump($_SESSION);
+if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST["cerrar_sesion"])) {
+    unset($_SESSION['logueado']);
+    session_destroy();
+    session_abort();
+    session_unset();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,5 +16,8 @@ var_dump($_SESSION);
 </head>
 <body>
     <a href="login.php">Login</a>
+    <form action="index.php" method="POST">
+        <button value="cerrar_sesion" name="cerrar_sesion">Cerrar sesion</button>
+    </form>
 </body>
 </html>

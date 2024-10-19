@@ -5,22 +5,27 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
   if (isset($_POST['nombreUsu']) && isset($_POST['correoUsu']) && isset($_POST['contrasenaUsu']) && isset($_POST['confContasena'])) {
     $nombreUsuario = $conn->real_escape_string($_POST['nombreUsu']);
     $email = $conn->real_escape_string($_POST['correoUsu']);
-    $contrasena = $conn->real_escape_string($_POST['contrasenaUsu']);
-    $confContrasena = $conn->real_escape_string($_POST['confContasena']);
-    if ($contrasena == $confContrasena) {
-      $contrasena = password_hash($contrasena, PASSWORD_DEFAULT);
-      $sql = "INSERT INTO usuarios(nombre_usuario, correo_electronico, contrasena) VALUES ('$nombreUsuario', '$email', '$contrasena')";
-      if($conn->query($sql)){
-        $_SESSION['logueado'] = true;
-        header('Location: index.php');
-        exit;
+    $sql = "SELECT id FROM usuarios WHERE correo_electronico = '$email'";
+    $resultado = $conn->query($sql);
+    if ($resultado->num_rows == 0) {
+      $contrasena = $conn->real_escape_string($_POST['contrasenaUsu']);
+      $confContrasena = $conn->real_escape_string($_POST['confContasena']);
+      if ($contrasena == $confContrasena) {
+        $contrasena = password_hash($contrasena, PASSWORD_DEFAULT);
+        $sql = "INSERT INTO usuarios(nombre_usuario, correo_electronico, contrasena) VALUES ('$nombreUsuario', '$email', '$contrasena')";
+        if($conn->query($sql)){
+          $_SESSION['logueado'] = true;
+          header('Location: index.php');
+          exit;
+        }else{
+          $_SESSION["registerFailded"] = "Ocurrio un error al crear el usuario, intentelo nuevamente";
+        }
       }else{
-        $_SESSION["registerFailded"] = "Ocurrio un error al crear el usuario, intentelo nuevamente";
+        $_SESSION["registerFailded"] = "Las contraseñas no coinciden";
       }
     }else{
-      $_SESSION["registerFailded"] = "Las contraseñas no coinciden";
+      $_SESSION["registerFailded"] = "Ya existe un usuario con este correo electronico";
     }
-    
   }else{
     $_SESSION["registerFailded"] = "Todos los campos son obligatorios";
   }
@@ -36,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link rel="stylesheet" href="login.css">
-  <title>Login</title>
+  <title>Registro</title>
 </head>
 <body>
   <main>
@@ -47,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
           <h2 class="text-center text-primary fw-bold">Registro de usuario</h2>
           <div class="card m-5">
             <div class="card-body">
-              <form action="index.php" method="POST">
+              <form action="registro.php" method="POST">
                 <label class='ms-1 fw-bold pb-2' for="nombreUsu">Nombre de usuario:</label>
                 <div class="form-floating mb-3">
                   <input type="text" class="form-control" id="nombreUsu" name="nombreUsu" placeholder="Steven0987" required>
@@ -69,11 +74,21 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
                   <label for="floatingPassword">Confirmar contraseña</label>
                 </div>
                 <button class="btn btn-success container-fluid mt-3">Registrarse</button>
-                <p class="mt-2 mb-1 text-center">¿Ya tiene una cuenta? <a href="./login.html" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Inicie sesion</a></p>
+                <p class="mt-2 mb-1 text-center">¿Ya tiene una cuenta? <a href="./login.php" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Inicie sesion</a></p>
                 <!--<p class="mt-2 mb-1 text-center">¿No tiene una cuenta? <a href="#" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Registrese</a></p>-->
               </form>
             </div>
           </div>
+          <?php
+            if (isset($_SESSION["registerFailded"])) {
+          ?>
+            <div class="alert alert-danger mt-3">
+            <?php echo$_SESSION["registerFailded"] ?>
+            </div>
+          <?php
+            unset($_SESSION["registerFailded"]);
+            }
+          ?>
         </div>
       </div>
     </div>
