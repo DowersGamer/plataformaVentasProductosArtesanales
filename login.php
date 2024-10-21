@@ -11,6 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
       $resultado = $resultado->fetch_object();
       if (password_verify($contrasena, $resultado->contrasena ?? '')) {
         $_SESSION['logueado'] = true;
+        $_SESSION['usuario'] = $resultado->usuario;
         header('Location: index.php');
         exit;
       }else{
@@ -38,11 +39,17 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
   <title>Login</title>
 </head>
 <body>
+  <style>
+    .position-fixed {
+        top: 10px; /* Ajusta la distancia del borde superior */
+        left: 10px; /* Ajusta la distancia del borde izquierdo */
+    }
+  </style>
   <main>
     <div class="container-fluid contenedorPrincipal">
       <div class="row">
-        <div class="col-6 contenedorImagen"></div>
-        <div class="col-6 contenedorFormulario p-5">
+        <div class="col-6 d-none d-md-block contenedorImagen"></div>
+        <div class="col-12 col-md-6 contenedorFormulario p-5">
           <h2 class="text-center text-primary fw-bold">Inicio de sesion</h2>
           <div class="card m-5">
             <div class="card-body">
@@ -76,6 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
       </div>
     </div>
   </main>
+  <a class="btn btn-sm btn-primary position-fixed" href="./index.php"><- Inicio</a>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -14,32 +14,6 @@
   .tabLogin:hover{
     transform: scale(.94);
   }
-  .offcanvas-footer {
-    padding-top: 20px;
-    padding-bottom: 20px;
-  }
-  .contenedorProducto{
-    border: 2px solid rgb(0 71 141);
-    padding: 2px;
-    border-radius: 5px;
-    background-color: rgb(150 232 255 / 20%);
-  }
-  .contenedorEliminar{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  .botonOffCanvas {
-    position: fixed !important;
-    bottom: 20px !important; 
-    right: 20px !important; 
-    background-color: rgb(2 69 211 / 28%) !important;
-    color: black !important;
-    border: 2px solid rgb(13 37 145 / 76%) !important;
-    border-radius: 100px !important;
-    padding: 17px !important;
-  }
 </style>
 <!DOCTYPE html>
 <html lang="en">
@@ -55,11 +29,11 @@
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <a class="navbar-brand" href="#">CoopArtesanos</a>
+      <a class="navbar-brand" href="./index.php">CoopArtesanos</a>
       <div class="collapse navbar-collapse justify-content-end" id="navbarTogglerDemo03">
         <ul class="navbar-nav mb-2 mb-lg-0">
           <li class="nav-item mx-2">
-            <a class="nav-link" href="./seccionManillas.php">Manillas</a>
+            <a class="nav-link active" aria-current="page" href="./seccionManillas.php">Manillas</a>
           </li>
           <li class="nav-item mx-2">
             <a class="nav-link" href="./seccionCeramicas.php">Ceramicas</a>
@@ -98,63 +72,6 @@
   </nav>
   <div class="container mt-5">
     <div class="row">
-     
-      <!-- Producto 1 -->
-      <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
-        <div class="card">
-          <img src="./ollaBarro.png" class="card-img-top" alt="Juguete 1" style="height: 300px; object-fit: cover;">
-          <div class="card-body">
-            <h5 class="card-title">Olla de cerámica</h5>
-            <p class="card-text">Olla de cerámica echa completamente a mano.</p>
-            <a class="btn btn-primary container-fluid" href="./paginaProductos.php?producto=ollaCeramica">Ver mas</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Producto 2 -->
-      <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
-        <div class="card">
-          <img src="./platoBarro.png" class="card-img-top" alt="Juguete 2" style="height: 300px; object-fit: cover;">
-          <div class="card-body">
-            <h5 class="card-title">Plato de cerámica</h5>
-            <p class="card-text">Plato de cerámica hecho completamente a mano.</p>
-            <a class="btn btn-primary container-fluid" href="./paginaProductos.php?producto=platoCeramica">Ver mas</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Repite el código de la tarjeta para cada producto -->
-      <!-- Producto 3 al 20 -->
-      <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
-        <div class="card">
-          <img src="./vasijaBarro.png" class="card-img-top" alt="Juguete 3" style="height: 300px; object-fit: cover;">
-          <div class="card-body">
-            <h5 class="card-title">Vasija de cerámica</h5>
-            <p class="card-text">Vasija de cerámica echo completamente a manos.</p>
-            <a class="btn btn-primary container-fluid" href="./paginaProductos.php?producto=vasijaCeramica">Ver mas</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
-        <div class="card">
-          <img src="./atrapasuenosMadera.png" class="card-img-top" alt="Juguete 4" style="height: 300px; object-fit: cover;">
-          <div class="card-body">
-            <h5 class="card-title">Atrapa sueños de madera</h5>
-            <p class="card-text">Atrapa sueños de madera.</p>
-            <a class="btn btn-primary container-fluid" href="./paginaProductos.php?producto=atrapaSuenosMadera">Ver mas</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
-        <div class="card">
-          <img src="./atrapasuenosTela.png" class="card-img-top" alt="Juguete 5" style="height: 200px; object-fit: cover;">
-          <div class="card-body">
-            <h5 class="card-title">Atrapa sueños de tela</h5>
-            <p class="card-text">Atrapa sueños de tela fabricado en Colombia.</p>
-            <a class="btn btn-primary container-fluid" href="./paginaProductos.php?producto=atrapaSuenosTela">Ver mas</a>
-          </div>
-        </div>
-      </div>
       <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
         <div class="card">
           <img src="./manillaRojoBlanca.png" class="card-img-top" alt="Juguete 6" style="height: 200px; object-fit: cover;">
